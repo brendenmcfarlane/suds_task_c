@@ -5,7 +5,9 @@ class MAS:
     def __init__(self, List_of_agents, List_of_edges):
         self._nodes = {}
         self._transcript = []
+        self._edges = List_of_edges
         self._answer = ""
+        self._correct = None
         for agent in List_of_agents:
             self._nodes[agent.get_name()] = AgentNode(agent)
         self._nodes["SinkNode"] = SinkNode()
@@ -19,9 +21,15 @@ class MAS:
             self._nodes[agent1_name].add_outgoing(self._nodes[agent2_name])
             self._nodes[agent2_name].add_incoming(self._nodes[agent1_name])
 
+    def get_question(self):
+        return self._nodes["QuestionNode"].get_output()
+    
+    def get_answer(self):
+        return self._nodes["SinkNode"].get_output()
+
     def execute(self, question):
-        self._transcript.append(f"Question: {question}")
         self._nodes["QuestionNode"].set_question(question)
+        self.extend_transcript("QuestionNode")
         agent_nodes = list(self._nodes.values())
         while len(agent_nodes) > 0:
             ready_nodes = []
@@ -36,12 +44,34 @@ class MAS:
                 node.call_agent()
                 for n in node.get_outgoing():
                     n.receive_message(node.get_output())
-                self._transcript.append(node.get_output())
+                self.extend_transcript(node.get_agent_name())
 
         return self._nodes["SinkNode"].get_output()     
     
+    def get_topology(self):
+        return {"nodes": list(self._nodes.keys()), "edges": self._edges}
+
+    def extend_transcript(self, agent_name):
+        self._transcript.append((agent_name, self._nodes[agent_name].get_output()))
+
     def get_number_of_agents(self):
         return len(self._nodes) - 2 # Exclude QuestionNode and SinkNode
+    
+    def reset_mas(self):
+        for node in self._nodes.values():
+            node._messages = []
+            node._output = None
+        self._transcript = []
+        self._answer = ""
+    
+    def get_transcript(self):
+        return self._transcript
+    
+    def set_correctness(self, correct):
+        self._correct = correct
+
+    def get_correctness(self):
+        return self._correct
     
 def main():
     question = "What is the capital of France?"

@@ -2,6 +2,8 @@ from agent import GeminiAgent
 from mas import MAS
 API_KEY = input("Enter your API key: ")
 
+
+
 def main():
     question = ("James writes a 3-page letter to 2 different friends twice a week." + 
                 "How many pages does he write in a year?")
