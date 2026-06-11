@@ -2,6 +2,8 @@ from typing import Optional
 from google import genai
 from google.genai import types
 
+from src.api_throttler import gemini_throttler
+
 class Agent:
     def __init__(self, name="Agent Smith", prompt=""):
         self._name = name
@@ -10,7 +12,7 @@ class Agent:
         return self._name
     def get_prompt(self):
         return self._prompt
-    def call(self, context=""):
+    def call(self, context="") -> str:
         return " "
     def set_api_key(self, api_key):
         return None
@@ -24,7 +26,37 @@ class GeminiAgent(Agent):
         self._model = "gemini-3.1-flash-lite"
         self._config = types.GenerateContentConfig(temperature=1.5, max_output_tokens=1024, seed=42)
 
+    def call(self, context="") -> str:
+        if self._client is None:
+            raise RuntimeError("API client not configured. Call set_api_key first.")
+        input_text = self._prompt + " " + context
+        response = self._client.models.generate_content(
+            model=self._model,
+            contents=input_text,
+            config=self._config
+        )
+        if response.text is None:
+            return ""
+        
+        return response.text
+    
+    def set_api_key(self, api_key):
+        self._client = genai.Client(api_key=api_key)
+
+    def set_model(self, model_name):
+        self._model = model_name
+
+class SlowGeminiAgent(Agent):
+    def __init__(self, name="Gemini Agent", prompt="", api_key = None):
+        super().__init__(name, prompt)
+        self._client: Optional[genai.Client] = None
+        if api_key is not None:
+            self.set_api_key(api_key)
+        self._model = "gemini-3.1-flash-lite"
+        self._config = types.GenerateContentConfig(temperature=1.5, max_output_tokens=1024, seed=42)
+
     def call(self, context=""):
+        gemini_throttler.make_call()
         if self._client is None:
             raise RuntimeError("API client not configured. Call set_api_key first.")
         input_text = self._prompt + " " + context
