@@ -1,7 +1,7 @@
 from agent import GeminiAgent
 from mas import MAS
 API_KEY = input("Enter your API key: ")
-
+# make sure full MAS setup is working
 
 
 def main():
