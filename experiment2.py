@@ -18,22 +18,6 @@ def evaluate_mas(mas, correct_answer):
     mas.set_correctness(is_correct)
     return is_correct
 
-def export_trajectory(mas):
-    transcript = [{"agent": agent_name, "output": output} for agent_name, output in mas.get_transcript()]
-
-    trajectory = { "topology": mas.get_topology(), "question": mas.get_question(),
-                   "final_answer": mas.get_answer(), "agent_calls": mas.get_number_of_agents(), 
-                   "correct": mas.get_correctness(), "transcript": transcript }
-
-    trajectory_json = json.dumps(trajectory, indent=4)
-    return trajectory_json
-
-def export_results(mas):
-    results = { "topology": mas.get_topology(), "question": mas.get_question(), 
-               "agent_calls": mas.get_number_of_agents(), "correct": mas.get_correctness() }
-
-    results_json = json.dumps(results, indent=4)
-    return results_json
 
 def main():
 

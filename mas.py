@@ -73,6 +73,23 @@ class MAS:
     def get_correctness(self):
         return self._correct
     
+    def export_trajectory(self):
+        transcript = [{"agent": agent_name, "output": output} for agent_name, output in self.get_transcript()]
+
+        trajectory = { "topology": self.get_topology(), "question": self.get_question(),
+                    "final_answer": self.get_answer(), "agent_calls": self.get_number_of_agents(), 
+                    "correct": self.get_correctness(), "transcript": transcript }
+
+        trajectory_json = json.dumps(trajectory, indent=4)
+        return trajectory_json
+
+    def export_results(self):
+        results = { "topology": self.get_topology(), "question": self.get_question(), 
+                "agent_calls": self.get_number_of_agents(), "correct": self.get_correctness() }
+
+        results_json = json.dumps(results, indent=4)
+        return results_json
+    
 def main():
     question = "What is the capital of France?"
     planner = Agent("Planner", "Plan the steps to answer the question.")
