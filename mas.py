@@ -1,5 +1,6 @@
 from agent import Agent
 from node import AgentNode, QuestionNode, SinkNode
+import json
 
 class MAS:
     def __init__(self, List_of_agents, List_of_edges):

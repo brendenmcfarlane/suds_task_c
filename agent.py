@@ -1,6 +1,6 @@
 from typing import Optional
 from google import genai
-
+from google.genai import types
 
 class Agent:
     def __init__(self, name="Agent Smith", prompt=""):
@@ -24,15 +24,16 @@ class GeminiAgent(Agent):
         if api_key is not None:
             self.set_api_key(api_key)
         self._model = "gemini-3.1-flash-lite"
+        self._config = types.GenerateContentConfig(temperature=1.5, max_output_tokens=1024, seed=42)
 
     def call(self, context=""):
         if self._client is None:
             raise RuntimeError("API client not configured. Call set_api_key first.")
-
         input_text = self._prompt + " " + context
         response = self._client.models.generate_content(
             model=self._model,
-            contents=input_text
+            contents=input_text,
+            config=self._config
         )
         if response.text is None:
             return ""
