@@ -1,5 +1,5 @@
-from agent import Agent
-from node import AgentNode, QuestionNode, SinkNode
+from src.agent import Agent
+from src.node import AgentNode, QuestionNode, SinkNode
 import json
 
 class MAS:
@@ -7,6 +7,7 @@ class MAS:
         self._nodes = {}
         self._transcript = []
         self._edges = List_of_edges
+        self._agents = List_of_agents
         self._answer = ""
         self._correct = None
         for agent in List_of_agents:
@@ -50,7 +51,11 @@ class MAS:
         return self._nodes["SinkNode"].get_output()     
     
     def get_topology(self):
-        return {"nodes": list(self._nodes.keys()), "edges": self._edges}
+        if ("QuestionNode" not in self._agents):
+            self._agents.insert("QuestionNode", 0)
+        if ("SinkNode" not in self._agents):
+            self._agents.append("SinkNode")
+        return {"nodes": self._agents, "edges": self._edges}
 
     def extend_transcript(self, agent_name):
         self._transcript.append((agent_name, self._nodes[agent_name].get_output()))

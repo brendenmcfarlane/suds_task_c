@@ -8,6 +8,8 @@ class GraphMutator():
         self._edges = edges[:]
         self._seed = seed
         
+    def get_topology(self):
+        return {"vertices": self._vertices, "edges": self._edges}
     
     def try_add_edge(self, new_edge):
         if not(new_edge in self._edges):
@@ -69,3 +71,9 @@ class GraphMutator():
             self.remove_edge((left, right))
         else:
             self.pick_mutation()
+    
+class WorkflowGraphMutator(GraphMutator):
+        def __init__(self, vertices, edges, seed = 100) -> None:
+            super().__init__(vertices, edges, seed)
+        def get_topology(self):
+            return {"agents": self._vertices, "edges": self._edges}

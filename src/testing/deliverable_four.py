@@ -1,4 +1,4 @@
-from graph_mutator import GraphMutator
+from src.graph_mutator import GraphMutator
 
 agents = range(5)
 edges = [(0,1), (1,2), (2, 3), (3, 4), (0, 2)]

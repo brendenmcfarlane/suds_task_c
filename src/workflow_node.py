@@ -34,6 +34,12 @@ class WorkflowNode:
     def get_edges(self):
         return self._topology["edges"]
     
+    def get_accuracy(self):
+        return len(self._results["successes"]) / (len(self._results["successes"]) + len(self._results["failures"]))
+
+    def get_num_calls(self): 
+        return self._mas.get_number_of_agents()
+    
     def get_score(self):
         return self._results["score"]
     

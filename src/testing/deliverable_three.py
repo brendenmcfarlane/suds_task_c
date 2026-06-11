@@ -1,5 +1,5 @@
-from agent import GeminiAgent
-from workflow_node import WorkflowNode
+from src.agent import GeminiAgent
+from src.workflow_node import WorkflowNode
 import json
 
 API_KEY = input("Enter your API key: ")

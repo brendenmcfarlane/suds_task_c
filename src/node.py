@@ -1,4 +1,4 @@
-from agent import Agent
+from src.agent import Agent
 
 class AgentNode:
     def __init__(self, agent):
