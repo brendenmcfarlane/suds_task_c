@@ -6,16 +6,14 @@ class Agent:
     def __init__(self, name="Agent Smith", prompt=""):
         self._name = name
         self._prompt = prompt
-
     def get_name(self):
         return self._name
-    
     def get_prompt(self):
         return self._prompt
-    
     def call(self, context=""):
-        #TODO: implment API LLM call here
-        return (f"{self._name} was prompted with '{self._prompt}'. \nContext: {context}")
+        return " "
+    def set_api_key(self, api_key):
+        return None
     
 class GeminiAgent(Agent):
     def __init__(self, name="Gemini Agent", prompt="", api_key = None):

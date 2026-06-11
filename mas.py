@@ -28,7 +28,7 @@ class MAS:
     def get_answer(self):
         return self._nodes["SinkNode"].get_output()
 
-    def execute(self, question):
+    def execute(self, question): #TODO: Refactor to assume topological sort
         self._nodes["QuestionNode"].set_question(question)
         self.extend_transcript("QuestionNode")
         agent_nodes = list(self._nodes.values())
