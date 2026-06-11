@@ -1,4 +1,4 @@
-from mas import MAS
+from src.mas import MAS
 
 class WorkflowNode:
     def __init__(self, topology, node_id, parent=None):
