@@ -1,18 +1,24 @@
 from src.graph_mutator import WorkflowGraphMutator, GraphMutator
-from src.agent import GeminiAgent
+from src.agent import SlowGeminiAgent
 from src.workflow_node import WorkflowNode
 from google import genai
 import time
 
+def export_search_results(list_nodes, path):
+    with open(path, "w") as file:
+        file.write("[\n" + str(list_nodes[0]))
+        for i in range(1, len(list_nodes)):
+            file.write("," + str(list_nodes[i]))
+        file.write("]")
 
 def main():
     API_KEY = input("Enter API Key:")
     QUESTION = ("James writes a 3-page letter to 2 different friends twice a week." + 
                 "How many pages does he write in a year?")
-    PLANNER = GeminiAgent("Planner", "You are the Planner. Propose a concise plan to solve the task.", api_key=API_KEY)
-    READER = GeminiAgent("Reader", "You are the Reader. Extract key facts for another agent to use to generate the final answer.", api_key=API_KEY)
-    SOLVER = GeminiAgent("Solver", "You are the Solver. Carry out the plan and compute results", api_key=API_KEY)
-    VERIFIER = GeminiAgent("Verifier", "You are the Verifier. Double-check the result and produce the final answer only.", api_key=API_KEY)
+    PLANNER = SlowGeminiAgent("Planner", "You are the Planner. Propose a concise plan to solve the task.", api_key=API_KEY)
+    READER = SlowGeminiAgent("Reader", "You are the Reader. Extract key facts for another agent to use to generate the final answer.", api_key=API_KEY)
+    SOLVER = SlowGeminiAgent("Solver", "You are the Solver. Carry out the plan and compute results", api_key=API_KEY)
+    VERIFIER = SlowGeminiAgent("Verifier", "You are the Verifier. Double-check the result and produce the final answer only.", api_key=API_KEY)
 
 
 
@@ -31,9 +37,9 @@ def main():
     root_node.run_inference([QUESTION], ["624"])
     score = root_node.get_accuracy() - 0.02 * root_node.get_num_calls()
     print((score, {"agents": agents, "edges": edges}))
-    scores.append((score, root_node))
+    scores.append(root_node)
     seed += 1
-    for _ in range(1):
+    for _ in range(3):
         mut1 = WorkflowGraphMutator(curr.get_agents()[:], curr.get_edges()[:], seed)
         mut2 = WorkflowGraphMutator(curr.get_agents()[:], curr.get_edges()[:], seed + 1)
         mut1.pick_mutation()
@@ -51,18 +57,17 @@ def main():
         child2.run_inference([QUESTION], ["624"])
         score1 = child1.get_accuracy() - 0.02 * child1.get_num_calls()
         score2 = child2.get_accuracy() - 0.02 * child2.get_num_calls()
-        scores.append((score1, child1, mut1.get_topology()))
-        scores.append((score2, child2, mut2.get_topology()))
-        print((score1, child1))
-        print((score2, child2))
+        scores.append(child1)
+        scores.append(child2)
+        print(child1)
+        print(child2)
         if (score <= score1 or score <= score2):
             score = max(score1, score2)
             curr = child1 if score1 > score2 else child2
-        print(f"Best: {(score, curr)}")
-        time.sleep(60)
+        print(f"Best: {curr}")
+
+    export_search_results(scores, "./outputs/d5_results.json")
     
-    scores.sort()
-    print(scores)
 
 
 

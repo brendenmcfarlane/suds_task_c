@@ -1,4 +1,5 @@
 from src.mas import MAS
+import json
 
 class WorkflowNode:
     def __init__(self, topology, node_id, parent=None):
@@ -11,7 +12,18 @@ class WorkflowNode:
         self._children = []
         self._mas = None
         self._results = {"successes": [], "failures": [], "score": None}
-
+    def __str__(self):
+        if self._parent is None:
+            parent = 0
+        else:
+            parent = str(self._parent.get_node_id())
+        mas_representation = {"node_id": str(self._node_id),
+                              "topology": self._topology["edges"], 
+                              "score":self._results["score"], 
+                              "parent_id": parent}
+        return json.dumps(mas_representation, indent=4)
+    def __repr__(self):
+        return self._node_id
     def add_child(self, topology, node_id):
         child_node = WorkflowNode(topology, node_id, parent=self)
         self._children.append(child_node)

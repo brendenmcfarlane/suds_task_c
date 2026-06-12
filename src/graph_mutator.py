@@ -55,7 +55,7 @@ class GraphMutator():
 
         return vertices[-1] in visited
     
-    def pick_mutation(self, seed=None):
+    def pick_mutation(self, seed=None) -> None:
         if seed is None:
             random.seed(self._seed)
         else:
@@ -77,3 +77,21 @@ class WorkflowGraphMutator(GraphMutator):
             super().__init__(vertices, edges, seed)
         def get_topology(self):
             return {"agents": self._vertices, "edges": self._edges}
+        def pick_mutation(self, seed=None) -> None:
+            if seed is None:
+                random.seed(self._seed)
+            else:
+                random.seed(seed)
+            
+            self._seed += 1
+
+            left = random.randint(0, len(self._vertices)-2)
+            right = random.randint(left + 1, len(self._vertices)-1)
+            left = self._vertices[left].get_name()
+            right = self._vertices[right].get_name()
+            if self.try_add_edge((left, right)):
+                self.add_edge((left, right))
+            elif self.try_remove_edge((left, right)):
+                self.remove_edge((left, right))
+            else:
+                self.pick_mutation()
