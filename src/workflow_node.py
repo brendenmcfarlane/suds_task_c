@@ -71,6 +71,7 @@ class WorkflowNode:
         self._results["score"] = len(self._results["successes"]) / (len(self._results["successes"]) + len(self._results["failures"])) - (0.02 * self._mas.get_number_of_agents()) # small penalty for more calls, to encourage simpler solutions
 
     def construct_mas(self):
+        #need to add q and sink node in here
         agents = [agent for agent in self._topology["agents"]]
         edges = [edge for edge in self._topology["edges"]]
         self._mas = MAS(agents, edges)  

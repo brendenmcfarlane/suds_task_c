@@ -1,0 +1,74 @@
+[
+{
+    "node_id": "77",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": 0
+},{
+    "node_id": "78",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "Reader"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "77"
+}]

@@ -1,6 +1,7 @@
 from src.graph_mutator import WorkflowGraphMutator, GraphMutator
-from src.agent import SlowGeminiAgent
+from src.agent import SlowGeminiAgent, Agent
 from src.workflow_node import WorkflowNode
+from src.node import SinkNode, QuestionNode
 from google import genai
 import time
 
@@ -12,17 +13,17 @@ def export_search_results(list_nodes, path):
         file.write("]")
 
 def main():
-    API_KEY = input("Enter API Key:")
     QUESTION = ("James writes a 3-page letter to 2 different friends twice a week." + 
                 "How many pages does he write in a year?")
-    PLANNER = SlowGeminiAgent("Planner", "You are the Planner. Propose a concise plan to solve the task.", api_key=API_KEY)
-    READER = SlowGeminiAgent("Reader", "You are the Reader. Extract key facts for another agent to use to generate the final answer.", api_key=API_KEY)
-    SOLVER = SlowGeminiAgent("Solver", "You are the Solver. Carry out the plan and compute results", api_key=API_KEY)
-    VERIFIER = SlowGeminiAgent("Verifier", "You are the Verifier. Double-check the result and produce the final answer only.", api_key=API_KEY)
+    PLANNER = SlowGeminiAgent("Planner", "You are the Planner. Propose a concise plan to solve the task.")
+    READER = SlowGeminiAgent("Reader", "You are the Reader. Extract key facts for another agent to use to generate the final answer.")
+    SOLVER = SlowGeminiAgent("Solver", "You are the Solver. Carry out the plan and compute results")
+    VERIFIER = SlowGeminiAgent("Verifier", "You are the Verifier. Double-check the result and produce the final answer only.")
+    QUESTIONAGENT= Agent("QuestionNode", "")
+    SINKAGENT = Agent("SinkNode", "")
 
 
-
-    agents = [PLANNER, READER, SOLVER, VERIFIER]
+    agents = [QUESTIONAGENT,PLANNER, READER, SOLVER, VERIFIER, SINKAGENT]
     edges = [("QuestionNode", "Planner"), ("QuestionNode", "Reader"), 
                 ("QuestionNode", "Verifier"), ("Planner", "Solver"), ("Reader", "Solver"), 
                 ("Solver", "Verifier"), ("Verifier", "SinkNode")]
@@ -39,7 +40,7 @@ def main():
     print((score, {"agents": agents, "edges": edges}))
     scores.append(root_node)
     seed += 1
-    for _ in range(3):
+    for _ in range(5):
         mut1 = WorkflowGraphMutator(curr.get_agents()[:], curr.get_edges()[:], seed)
         mut2 = WorkflowGraphMutator(curr.get_agents()[:], curr.get_edges()[:], seed + 1)
         mut1.pick_mutation()

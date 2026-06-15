@@ -3,6 +3,7 @@ from google import genai
 from google.genai import types
 
 from src.api_throttler import gemini_throttler
+from api_key import API_KEY
 
 class Agent:
     def __init__(self, name="Agent Smith", prompt=""):
@@ -18,11 +19,10 @@ class Agent:
         return None
     
 class GeminiAgent(Agent):
-    def __init__(self, name="Gemini Agent", prompt="", api_key = None):
+    def __init__(self, name="Gemini Agent", prompt=""):
         super().__init__(name, prompt)
         self._client: Optional[genai.Client] = None
-        if api_key is not None:
-            self.set_api_key(api_key)
+        self.set_api_key(API_KEY)
         self._model = "gemini-3.1-flash-lite"
         self._config = types.GenerateContentConfig(temperature=1.5, max_output_tokens=1024, seed=42)
 
@@ -47,11 +47,10 @@ class GeminiAgent(Agent):
         self._model = model_name
 
 class SlowGeminiAgent(Agent):
-    def __init__(self, name="Gemini Agent", prompt="", api_key = None):
+    def __init__(self, name="Gemini Agent", prompt=""):
         super().__init__(name, prompt)
         self._client: Optional[genai.Client] = None
-        if api_key is not None:
-            self.set_api_key(api_key)
+        self.set_api_key(API_KEY)
         self._model = "gemini-3.1-flash-lite"
         self._config = types.GenerateContentConfig(temperature=1.5, max_output_tokens=1024, seed=42)
 

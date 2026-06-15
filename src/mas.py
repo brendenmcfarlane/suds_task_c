@@ -12,8 +12,9 @@ class MAS:
         self._correct = None
         for agent in List_of_agents:
             self._nodes[agent.get_name()] = AgentNode(agent)
-        self._nodes["SinkNode"] = SinkNode()
-        self._nodes["QuestionNode"] = QuestionNode()
+            if agent.get_name() == "QuestionNode": self._nodes[agent.get_name()] = QuestionNode()
+            if agent.get_name() == "SinkNode": self._nodes[agent.get_name()] = SinkNode()
+
 
         for edge in List_of_edges:
             self.add_edge(edge[0], edge[1])
@@ -98,13 +99,15 @@ class MAS:
     
 def main():
     question = "What is the capital of France?"
+    q_agent = Agent("QuestionNode")
     planner = Agent("Planner", "Plan the steps to answer the question.")
     reader = Agent("Reader", "Read the relevant information.")
     solver = Agent("Solver", "Solve the problem using the information.")
     verifier = Agent("Verifier", "Verify the solution.")
+    sink_agent = Agent("SinkNode", "")
 
 
-    agents = [planner, reader, solver, verifier]
+    agents = [q_agent, planner, reader, solver, verifier, sink_agent]
     edges = [("QuestionNode", "Planner"), ("QuestionNode", "Reader"), 
                 ("QuestionNode", "Verifier"), ("Reader", "Solver"), 
                 ("Solver", "Verifier"), ("Verifier", "SinkNode")]

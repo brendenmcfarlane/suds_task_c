@@ -1,0 +1,37 @@
+{
+    "topology": {
+        "nodes": [
+            "Planner",
+            "Reader",
+            "Solver",
+            "Verifier",
+            "SinkNode",
+            "QuestionNode"
+        ],
+        "edges": [
+            [
+                "QuestionNode",
+                "Planner"
+            ],
+            [
+                "QuestionNode",
+                "Reader"
+            ],
+            [
+                "Planner",
+                "Solver"
+            ],
+            [
+                "Reader",
+                "Solver"
+            ],
+            [
+                "Verifier",
+                "SinkNode"
+            ]
+        ]
+    },
+    "question": "James writes a 3-page letter to 2 different friends twice a week.How many pages does he write in a year?",
+    "agent_calls": 4,
+    "correct": null
+}

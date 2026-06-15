@@ -1,0 +1,464 @@
+[
+{
+    "node_id": "77",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": 0
+},{
+    "node_id": "78",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "Reader"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "77"
+},{
+    "node_id": "79",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "77"
+},{
+    "node_id": "80",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "79"
+},{
+    "node_id": "81",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ]
+    ],
+    "score": -0.08,
+    "parent_id": "79"
+},{
+    "node_id": "82",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "80"
+},{
+    "node_id": "83",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ],
+        [
+            "Solver",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "80"
+},{
+    "node_id": "84",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ],
+        [
+            "Solver",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "83"
+},{
+    "node_id": "85",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ],
+        [
+            "Solver",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "Reader"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "83"
+},{
+    "node_id": "86",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Planner",
+            "Solver"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ],
+        [
+            "Solver",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "SinkNode"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "85"
+},{
+    "node_id": "87",
+    "topology": [
+        [
+            "QuestionNode",
+            "Planner"
+        ],
+        [
+            "QuestionNode",
+            "Reader"
+        ],
+        [
+            "QuestionNode",
+            "Verifier"
+        ],
+        [
+            "Reader",
+            "Solver"
+        ],
+        [
+            "Solver",
+            "Verifier"
+        ],
+        [
+            "Verifier",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "SinkNode"
+        ],
+        [
+            "Reader",
+            "Verifier"
+        ],
+        [
+            "Solver",
+            "SinkNode"
+        ],
+        [
+            "Planner",
+            "Reader"
+        ]
+    ],
+    "score": 0.92,
+    "parent_id": "85"
+}]

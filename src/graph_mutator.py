@@ -33,7 +33,6 @@ class GraphMutator():
     
     def graph_is_connected(self, vertices, edges):
         # assume element 0 is the question, element -1 is the sink
-
         if not vertices:
             return True
 
@@ -41,7 +40,6 @@ class GraphMutator():
         graph = defaultdict(list)
         for e in edges:
             graph[e[0]].append(e[1])
-
         # DFS
         visited = set()
 
@@ -51,9 +49,9 @@ class GraphMutator():
                 if neighbor not in visited:
                     dfs(neighbor)
 
-        dfs(vertices[0])
+        dfs(vertices[0].get_name())
 
-        return vertices[-1] in visited
+        return vertices[-1].get_name() in visited
     
     def pick_mutation(self, seed=None) -> None:
         if seed is None:
@@ -62,15 +60,19 @@ class GraphMutator():
             random.seed(seed)
         
         self._seed += 1
+        mutation_found = False
+        while (not mutation_found):
 
-        left = random.randint(0, len(self._vertices)-2)
-        right = random.randint(left + 1, len(self._vertices)-1)
-        if self.try_add_edge((left, right)):
-            self.add_edge((left, right))
-        elif self.try_remove_edge((left, right)):
-            self.remove_edge((left, right))
-        else:
-            self.pick_mutation()
+            left = random.randint(0, len(self._vertices)-2)
+            right = random.randint(left + 1, len(self._vertices)-1)
+            if self.try_add_edge((left, right)):
+                self.add_edge((left, right))
+                mutation_found = True
+            elif self.try_remove_edge((left, right)):
+                self.remove_edge((left, right))
+                mutation_found = True
+            else:
+                mutation_found = False
     
 class WorkflowGraphMutator(GraphMutator):
         def __init__(self, vertices, edges, seed = 100) -> None:
@@ -84,14 +86,17 @@ class WorkflowGraphMutator(GraphMutator):
                 random.seed(seed)
             
             self._seed += 1
-
-            left = random.randint(0, len(self._vertices)-2)
-            right = random.randint(left + 1, len(self._vertices)-1)
-            left = self._vertices[left].get_name()
-            right = self._vertices[right].get_name()
-            if self.try_add_edge((left, right)):
-                self.add_edge((left, right))
-            elif self.try_remove_edge((left, right)):
-                self.remove_edge((left, right))
-            else:
-                self.pick_mutation()
+            mutation_found = False
+            while(not mutation_found):
+                left = random.randint(0, len(self._vertices)-2)
+                right = random.randint(left + 1, len(self._vertices)-1)
+                left = self._vertices[left].get_name()
+                right = self._vertices[right].get_name()
+                if self.try_add_edge((left, right)):
+                    self.add_edge((left, right))    
+                    mutation_found = True
+                elif self.try_remove_edge((left, right)):
+                    self.remove_edge((left, right))
+                    mutation_found = True
+                else:
+                    mutation_found = False
