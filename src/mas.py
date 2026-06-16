@@ -1,6 +1,7 @@
-from src.agent import Agent
+from src.agent import Agent, SlowGeminiAgent
 from src.node import AgentNode, QuestionNode, SinkNode
 import json
+from src.testing.q_a_pairs import Q_A_PAIRS_TEST
 
 class MAS:
     def __init__(self, List_of_agents, List_of_edges):
@@ -98,24 +99,30 @@ class MAS:
         return results_json
     
 def main():
-    question = "What is the capital of France?"
     q_agent = Agent("QuestionNode")
-    planner = Agent("Planner", "Plan the steps to answer the question.")
-    reader = Agent("Reader", "Read the relevant information.")
-    solver = Agent("Solver", "Solve the problem using the information.")
-    verifier = Agent("Verifier", "Verify the solution.")
+    planner = SlowGeminiAgent("Planner", "Plan the steps to answer the question.")
+    reader = SlowGeminiAgent("Reader", "Read the relevant information.")
+    solver = SlowGeminiAgent("Solver", "Solve the problem using the information.")
+    verifier = SlowGeminiAgent("Verifier", "Verify the solution. Provide the correct final result only")
     sink_agent = Agent("SinkNode", "")
 
 
     agents = [q_agent, planner, reader, solver, verifier, sink_agent]
     edges = [("QuestionNode", "Planner"), ("QuestionNode", "Reader"), 
-                ("QuestionNode", "Verifier"), ("Reader", "Solver"), 
+                ("QuestionNode", "Verifier"), ("Planner", "Solver"), 
+                 ("Reader", "Solver"), 
                 ("Solver", "Verifier"), ("Verifier", "SinkNode")]
     mas = MAS(agents, edges)
-    answer = mas.execute(question)
-    print("Answer:", answer)
-    print("Transcript:")
-    for line in mas._transcript:
-        print(line)
+    for question, ground_truth in zip(Q_A_PAIRS_TEST[0],Q_A_PAIRS_TEST[1]):
+        answer = mas.execute(question)
+        print(f"Question: {question}\n\n==========================\n Ground Truth: {ground_truth}\n\n =================================\n")
+        print("Answer: " + answer)
+        print("\n")
+        print()
+
+        print("Transcript:")
+        for line in mas._transcript:
+            print(line)
+        mas.reset_mas()
 
 if __name__ == "__main__":    main()

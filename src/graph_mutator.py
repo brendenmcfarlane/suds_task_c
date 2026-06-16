@@ -5,8 +5,14 @@ from src.agent import Agent, SlowGeminiAgent
 
 ORDER = ["QuestionNode", "Planner", "Reader", "Solver", 
          "ArithmeticChecker", "Verifier", "Reflector", "SinkNode"]
-PROMPTS = {"QuestionNode": " ", "Planner": " ", "Reader": " ", "Solver": " ", 
-         "ArithmeticChecker": " ", "Verifier": " ", "Reflector": " ", "SinkNode": " " }
+PROMPTS = {"QuestionNode": " ", 
+           "Planner": "You are the Planner. Propose a concise plan to solve the task.", 
+           "Reader": "You are the Reader. Extract key facts for another agent to use to generate the final answer.", 
+           "Solver": "You are the Solver. Carry out the plan and compute results", 
+         "ArithmeticChecker": "You are the arithmetic checker. Double check the arithmetic is accurate and reiterate the answer you were provdied, but with the calculations replaced with yours.", 
+         "Verifier": "You are the Verifier. Double-check the result and produce the final answer only.",
+         "Reflector": "You are the expert Reflector Agent in a collaborative multi-agent system. Your sole mission is to act as a rigorous, constructive, and uncompromising critic. You analyze outputs created by other agents, identify flaws, and provide actionable blueprints for improvement.", 
+         "SinkNode": " " }
 class GraphMutator():
     def __init__(self, vertices, edges, seed = 100) -> None:
         self._vertices = vertices[:]

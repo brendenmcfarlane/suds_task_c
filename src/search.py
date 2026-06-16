@@ -1,9 +1,11 @@
+from google import genai
+import time
+
 from src.graph_mutator import WorkflowGraphMutator, GraphMutator
 from src.agent import SlowGeminiAgent, Agent
 from src.workflow_node import WorkflowNode
 from src.node import SinkNode, QuestionNode
-from google import genai
-import time
+from src.testing.q_a_pairs import Q_A_PAIRS_TRAIN
 
 def export_search_results(list_nodes, path):
     with open(path, "w") as file:
@@ -35,7 +37,7 @@ def main():
     curr = root_node
     scores = []
     root_node.construct_mas()
-    root_node.run_inference([QUESTION], ["624"])
+    root_node.run_inference(Q_A_PAIRS_TRAIN[0], Q_A_PAIRS_TRAIN[1])
     score = root_node.get_accuracy() - 0.02 * root_node.get_num_calls()
     print((score, {"agents": agents, "edges": edges}))
     scores.append(root_node)
@@ -54,8 +56,8 @@ def main():
         child1, child2 = kids[-2], kids[-1]
         child1.construct_mas()
         child2.construct_mas()
-        child1.run_inference([QUESTION], ["624"])
-        child2.run_inference([QUESTION], ["624"])
+        child1.run_inference(Q_A_PAIRS_TRAIN[0], Q_A_PAIRS_TRAIN[1])
+        child2.run_inference(Q_A_PAIRS_TRAIN[0], Q_A_PAIRS_TRAIN[1])
         score1 = child1.get_accuracy() - 0.02 * child1.get_num_calls()
         score2 = child2.get_accuracy() - 0.02 * child2.get_num_calls()
         scores.append(child1)
