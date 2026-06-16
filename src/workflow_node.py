@@ -28,6 +28,8 @@ class WorkflowNode:
         child_node = WorkflowNode(topology, node_id, parent=self)
         self._children.append(child_node)
 
+
+
     def get_children(self):
         return self._children
     
